@@ -1,0 +1,470 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		F52E9DDF2AE692E400ECB896 /* NURBSRenderingApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F52E9DDE2AE692E400ECB896 /* NURBSRenderingApp.swift */; };
+		F52E9DE12AE692E400ECB896 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F52E9DE02AE692E400ECB896 /* ContentView.swift */; };
+		F52E9DE32AE692E600ECB896 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F52E9DE22AE692E600ECB896 /* Assets.xcassets */; };
+		F52E9DE62AE692E600ECB896 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F52E9DE52AE692E600ECB896 /* Preview Assets.xcassets */; };
+		F52E9DEE2AE6933000ECB896 /* Renderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F52E9DED2AE6933000ECB896 /* Renderer.swift */; };
+		F52E9DF02AE6935700ECB896 /* GPUDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = F52E9DEF2AE6935700ECB896 /* GPUDevice.swift */; };
+		F52E9DF22AE693C500ECB896 /* MTKViewContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F52E9DF12AE693C500ECB896 /* MTKViewContainer.swift */; };
+		F52E9DFA2AE694B200ECB896 /* RenderDestination.swift in Sources */ = {isa = PBXBuildFile; fileRef = F52E9DF92AE694B200ECB896 /* RenderDestination.swift */; };
+		F52E9E082AE6B19800ECB896 /* Shaders.metal in Sources */ = {isa = PBXBuildFile; fileRef = F52E9E072AE6B19800ECB896 /* Shaders.metal */; };
+		F556D0812AF2489D00BB64C6 /* ControlPointViewData.swift in Sources */ = {isa = PBXBuildFile; fileRef = F556D0802AF2489D00BB64C6 /* ControlPointViewData.swift */; };
+		F56AF68B2AE9CB8600101344 /* NetSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = F56AF68A2AE9CB8600101344 /* NetSize.swift */; };
+		F575124B2AF35E03005FDA63 /* Functions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F575124A2AF35E03005FDA63 /* Functions.swift */; };
+		F57FEA3B2AE6CB1400FFBE50 /* RenderTools.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F57FEA3A2AE6CB0C00FFBE50 /* RenderTools.framework */; };
+		F57FEA3C2AE6CB1400FFBE50 /* RenderTools.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = F57FEA3A2AE6CB0C00FFBE50 /* RenderTools.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		F57FEA472AE6D56000FFBE50 /* RightBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = F57FEA462AE6D56000FFBE50 /* RightBar.swift */; };
+		F57FEA492AE6D68D00FFBE50 /* PointPositionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F57FEA482AE6D68D00FFBE50 /* PointPositionView.swift */; };
+		F57FEA4F2AE7114300FFBE50 /* CubeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F57FEA4E2AE7114300FFBE50 /* CubeView.swift */; };
+		F59960922AF3ECA9004522F2 /* PatchDirection.swift in Sources */ = {isa = PBXBuildFile; fileRef = F59960912AF3ECA9004522F2 /* PatchDirection.swift */; };
+		F5D386A42AF7B73C00A8520A /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5D386A32AF7B73C00A8520A /* Utilities.swift */; };
+		F5E7CF192AEDAE8F00CEB57F /* PanView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5E7CF182AEDAE8F00CEB57F /* PanView.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		F57FEA392AE6CB0C00FFBE50 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F57FEA332AE6CB0C00FFBE50 /* RenderTools.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = F5BD20DE2A2F65B60063BCCD;
+			remoteInfo = RenderTools;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		F57FEA3D2AE6CB1400FFBE50 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				F57FEA3C2AE6CB1400FFBE50 /* RenderTools.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		F52E9DDB2AE692E400ECB896 /* NURBSRendering.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NURBSRendering.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		F52E9DDE2AE692E400ECB896 /* NURBSRenderingApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NURBSRenderingApp.swift; sourceTree = "<group>"; };
+		F52E9DE02AE692E400ECB896 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		F52E9DE22AE692E600ECB896 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		F52E9DE52AE692E600ECB896 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		F52E9DE72AE692E600ECB896 /* NURBSRendering.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = NURBSRendering.entitlements; sourceTree = "<group>"; };
+		F52E9DED2AE6933000ECB896 /* Renderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Renderer.swift; sourceTree = "<group>"; };
+		F52E9DEF2AE6935700ECB896 /* GPUDevice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPUDevice.swift; sourceTree = "<group>"; };
+		F52E9DF12AE693C500ECB896 /* MTKViewContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MTKViewContainer.swift; sourceTree = "<group>"; };
+		F52E9DF92AE694B200ECB896 /* RenderDestination.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RenderDestination.swift; sourceTree = "<group>"; };
+		F52E9E072AE6B19800ECB896 /* Shaders.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = Shaders.metal; sourceTree = "<group>"; };
+		F556D0802AF2489D00BB64C6 /* ControlPointViewData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ControlPointViewData.swift; sourceTree = "<group>"; };
+		F56AF68A2AE9CB8600101344 /* NetSize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetSize.swift; sourceTree = "<group>"; };
+		F575124A2AF35E03005FDA63 /* Functions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Functions.swift; sourceTree = "<group>"; };
+		F57FEA332AE6CB0C00FFBE50 /* RenderTools.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RenderTools.xcodeproj; path = ../../../Projects/RenderTools/RenderTools.xcodeproj; sourceTree = "<group>"; };
+		F57FEA462AE6D56000FFBE50 /* RightBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RightBar.swift; sourceTree = "<group>"; };
+		F57FEA482AE6D68D00FFBE50 /* PointPositionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PointPositionView.swift; sourceTree = "<group>"; };
+		F57FEA4A2AE6E0A100FFBE50 /* NURBSRendering-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NURBSRendering-Bridging-Header.h"; sourceTree = "<group>"; };
+		F57FEA4D2AE6E0B900FFBE50 /* ShaderTypes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ShaderTypes.h; sourceTree = "<group>"; };
+		F57FEA4E2AE7114300FFBE50 /* CubeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CubeView.swift; sourceTree = "<group>"; };
+		F59960912AF3ECA9004522F2 /* PatchDirection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatchDirection.swift; sourceTree = "<group>"; };
+		F5D386A32AF7B73C00A8520A /* Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
+		F5E7CF182AEDAE8F00CEB57F /* PanView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PanView.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		F52E9DD82AE692E400ECB896 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F57FEA3B2AE6CB1400FFBE50 /* RenderTools.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		F52E9DD22AE692E400ECB896 = {
+			isa = PBXGroup;
+			children = (
+				F52E9DDD2AE692E400ECB896 /* NURBSRendering */,
+				F52E9DDC2AE692E400ECB896 /* Products */,
+				F57FEA322AE6CB0B00FFBE50 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		F52E9DDC2AE692E400ECB896 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				F52E9DDB2AE692E400ECB896 /* NURBSRendering.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		F52E9DDD2AE692E400ECB896 /* NURBSRendering */ = {
+			isa = PBXGroup;
+			children = (
+				F52E9DDE2AE692E400ECB896 /* NURBSRenderingApp.swift */,
+				F52E9DED2AE6933000ECB896 /* Renderer.swift */,
+				F52E9DF12AE693C500ECB896 /* MTKViewContainer.swift */,
+				F52E9DF92AE694B200ECB896 /* RenderDestination.swift */,
+				F52E9DEF2AE6935700ECB896 /* GPUDevice.swift */,
+				F575124A2AF35E03005FDA63 /* Functions.swift */,
+				F59960912AF3ECA9004522F2 /* PatchDirection.swift */,
+				F52E9DE02AE692E400ECB896 /* ContentView.swift */,
+				F57FEA462AE6D56000FFBE50 /* RightBar.swift */,
+				F57FEA482AE6D68D00FFBE50 /* PointPositionView.swift */,
+				F556D0802AF2489D00BB64C6 /* ControlPointViewData.swift */,
+				F57FEA4E2AE7114300FFBE50 /* CubeView.swift */,
+				F5E7CF182AEDAE8F00CEB57F /* PanView.swift */,
+				F56AF68A2AE9CB8600101344 /* NetSize.swift */,
+				F52E9E072AE6B19800ECB896 /* Shaders.metal */,
+				F52E9DE22AE692E600ECB896 /* Assets.xcassets */,
+				F52E9DE72AE692E600ECB896 /* NURBSRendering.entitlements */,
+				F52E9DE42AE692E600ECB896 /* Preview Content */,
+				F57FEA4A2AE6E0A100FFBE50 /* NURBSRendering-Bridging-Header.h */,
+				F57FEA4D2AE6E0B900FFBE50 /* ShaderTypes.h */,
+				F5D386A32AF7B73C00A8520A /* Utilities.swift */,
+			);
+			path = NURBSRendering;
+			sourceTree = "<group>";
+		};
+		F52E9DE42AE692E600ECB896 /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				F52E9DE52AE692E600ECB896 /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		F57FEA322AE6CB0B00FFBE50 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				F57FEA332AE6CB0C00FFBE50 /* RenderTools.xcodeproj */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		F57FEA342AE6CB0C00FFBE50 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				F57FEA3A2AE6CB0C00FFBE50 /* RenderTools.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		F52E9DDA2AE692E400ECB896 /* NURBSRendering */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F52E9DEA2AE692E600ECB896 /* Build configuration list for PBXNativeTarget "NURBSRendering" */;
+			buildPhases = (
+				F52E9DD72AE692E400ECB896 /* Sources */,
+				F52E9DD82AE692E400ECB896 /* Frameworks */,
+				F52E9DD92AE692E400ECB896 /* Resources */,
+				F57FEA3D2AE6CB1400FFBE50 /* Embed Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = NURBSRendering;
+			productName = NURBSRendering;
+			productReference = F52E9DDB2AE692E400ECB896 /* NURBSRendering.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		F52E9DD32AE692E400ECB896 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1500;
+				LastUpgradeCheck = 1500;
+				TargetAttributes = {
+					F52E9DDA2AE692E400ECB896 = {
+						CreatedOnToolsVersion = 15.0;
+						LastSwiftMigration = 1500;
+					};
+				};
+			};
+			buildConfigurationList = F52E9DD62AE692E400ECB896 /* Build configuration list for PBXProject "NURBSRendering" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = F52E9DD22AE692E400ECB896;
+			productRefGroup = F52E9DDC2AE692E400ECB896 /* Products */;
+			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = F57FEA342AE6CB0C00FFBE50 /* Products */;
+					ProjectRef = F57FEA332AE6CB0C00FFBE50 /* RenderTools.xcodeproj */;
+				},
+			);
+			projectRoot = "";
+			targets = (
+				F52E9DDA2AE692E400ECB896 /* NURBSRendering */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		F57FEA3A2AE6CB0C00FFBE50 /* RenderTools.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = RenderTools.framework;
+			remoteRef = F57FEA392AE6CB0C00FFBE50 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
+
+/* Begin PBXResourcesBuildPhase section */
+		F52E9DD92AE692E400ECB896 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F52E9DE62AE692E600ECB896 /* Preview Assets.xcassets in Resources */,
+				F52E9DE32AE692E600ECB896 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		F52E9DD72AE692E400ECB896 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F52E9DE12AE692E400ECB896 /* ContentView.swift in Sources */,
+				F52E9E082AE6B19800ECB896 /* Shaders.metal in Sources */,
+				F5E7CF192AEDAE8F00CEB57F /* PanView.swift in Sources */,
+				F575124B2AF35E03005FDA63 /* Functions.swift in Sources */,
+				F52E9DF22AE693C500ECB896 /* MTKViewContainer.swift in Sources */,
+				F556D0812AF2489D00BB64C6 /* ControlPointViewData.swift in Sources */,
+				F5D386A42AF7B73C00A8520A /* Utilities.swift in Sources */,
+				F57FEA4F2AE7114300FFBE50 /* CubeView.swift in Sources */,
+				F52E9DEE2AE6933000ECB896 /* Renderer.swift in Sources */,
+				F59960922AF3ECA9004522F2 /* PatchDirection.swift in Sources */,
+				F57FEA472AE6D56000FFBE50 /* RightBar.swift in Sources */,
+				F52E9DF02AE6935700ECB896 /* GPUDevice.swift in Sources */,
+				F52E9DFA2AE694B200ECB896 /* RenderDestination.swift in Sources */,
+				F57FEA492AE6D68D00FFBE50 /* PointPositionView.swift in Sources */,
+				F52E9DDF2AE692E400ECB896 /* NURBSRenderingApp.swift in Sources */,
+				F56AF68B2AE9CB8600101344 /* NetSize.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		F52E9DE82AE692E600ECB896 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		F52E9DE92AE692E600ECB896 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = macosx;
+				SWIFT_COMPILATION_MODE = wholemodule;
+			};
+			name = Release;
+		};
+		F52E9DEB2AE692E600ECB896 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = NURBSRendering/NURBSRendering.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"NURBSRendering/Preview Content\"";
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.Thingoteam.NURBSRendering;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "NURBSRendering/NURBSRendering-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		F52E9DEC2AE692E600ECB896 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = NURBSRendering/NURBSRendering.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"NURBSRendering/Preview Content\"";
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.Thingoteam.NURBSRendering;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "NURBSRendering/NURBSRendering-Bridging-Header.h";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		F52E9DD62AE692E400ECB896 /* Build configuration list for PBXProject "NURBSRendering" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F52E9DE82AE692E600ECB896 /* Debug */,
+				F52E9DE92AE692E600ECB896 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F52E9DEA2AE692E600ECB896 /* Build configuration list for PBXNativeTarget "NURBSRendering" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F52E9DEB2AE692E600ECB896 /* Debug */,
+				F52E9DEC2AE692E600ECB896 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = F52E9DD32AE692E400ECB896 /* Project object */;
+}
