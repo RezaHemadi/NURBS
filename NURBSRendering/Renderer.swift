@@ -94,54 +94,14 @@ class Renderer: NSObject, ObservableObject {
     
     // MARK: - Initialization
     override init() {
-        let pj: Matf = .init([0.5, 0.1, 0.0,
-                              0.0, 0.2, 0.0,
-                              -0.5, 0.5, 0.0],
-                             [3, 3])
-        vKnotVector = [0.0, 0.0, 0.0, 1.0, 1.0, 1.0]
-        uKnotVector = .init()
-        let wj: RVecf = [1.0, 1.0, 1.0]
-        let m: Int = 2
-        var n: Int = 0
-        controlPointPositions = .init()
-        var wij = Matf()
-        makeRevolvedSurf(S: [0.5, 0.0, 0.0], T: [1.0, 0.0, 0.0], theta: 360, m: m, Pj: pj, wj: wj, n: &n, U: &uKnotVector, Pij: &controlPointPositions, wij: &wij)
-        controlPointPositions.conservativeResize((m + 1) * (n + 1), 4)
-        weights = wij.values
-        
-        // make points homogenous
-        
-        for i in 0..<controlPointPositions.rows {
-            controlPointPositions.row(i) *= wij[i]
-        }
-        for i in 0..<controlPointPositions.rows {
-            controlPointPositions[i, 3] = wij[i]
-        }
-        netSize = [UInt32(n + 1), UInt32(m + 1)]
+        let curve = HLCurve(withUniformSpacing: 0.2, start: [-1.0, 0.0, 0.0], end: [1.0, 0.0, 0.0], degree: 3)
+        uKnotVector = curve.knotVector
+        controlPointPositions = curve.controlPoints
+        weights = .init(repeating: 1.0, count: curve.n + 1)
+        vKnotVector = .init()
+        netSize = [UInt32(curve.n + 1), 1]
         
         super.init()
-        
-        /*
-        var n: Int = 0
-        
-        controlPointPositions.conservativeResize(2 * (n + 1), 4)
-        
-        for i in 0..<(n + 1) {
-            controlPointPositions.row(i + (n + 1)) <<== controlPointPositions.row(i)
-        }
-        
-        let weightsCol: MatrixColumn = controlPointPositions.col(3)
-        weights = []
-        weights.reserveCapacity(weightsCol.rows)
-        for i in 0..<weightsCol.rows {
-            weights.append(weightsCol[i])
-        }
-        // make points homogenous
-        for i in 0..<controlPointPositions.rows {
-            controlPointPositions.row(i) /= weights[i]
-        }
-        controlPointPositions.block(n + 1, 2, n + 1, 1).setConstant(-1.0)
-        netSize = [UInt32(n + 1), 2]*/
     }
     
     // MARK: - Methods
@@ -211,14 +171,6 @@ class Renderer: NSObject, ObservableObject {
         controlPointPositions = Qw
         uKnotVector = UQ
         vKnotVector = VQ
-    }
-    
-    private func validateCurve() -> Bool {
-        let p: Int = (vKnotVector.array() == 0).count() - 1
-        if  (vKnotVector.array() == 1).count() - 1 != p { return false }
-        if (vKnotVectorCount - 1 != controlPointCount + p) { return false }
-        
-        return true
     }
     
     func topView() {
@@ -708,10 +660,10 @@ class Renderer: NSObject, ObservableObject {
     }
     
     func drawCurve(view: MTKView, commandBuffer: MTLCommandBuffer) {
-        assert(validateCurve(), "curve parameters invalid.")
+        //assert(validateCurve(), "curve parameters invalid.")
         
         var cpCount: Int = controlPointPositions.rows
-        var knotCount: Int = vKnotVectorCount
+        var knotCount: Int = uKnotVectorCount
         
         // evaluate curve using kernel
         let computeCommandEncoder = commandBuffer.makeComputeCommandEncoder()!
@@ -723,7 +675,7 @@ class Renderer: NSObject, ObservableObject {
         computeCommandEncoder.setBytes(&cpCount, length: MemoryLayout<Int>.size, index: CEBufferIndex.numberOfControlPoints.rawValue)
         computeCommandEncoder.setBuffer(curveVertexBuffer, offset: 0, index: CEBufferIndex.vertices.rawValue)
         computeCommandEncoder.setBuffer(controlPointsBuffer, offset: controlPointBufferOffset, index: CEBufferIndex.controlPoints.rawValue)
-        computeCommandEncoder.setBuffer(vKnotVectorBuffer, offset: vKnotVectorBufferOffset, index: CEBufferIndex.knotVector.rawValue)
+        computeCommandEncoder.setBuffer(uKnotVectorBuffer, offset: uKnotVectorBufferOffset, index: CEBufferIndex.knotVector.rawValue)
         computeCommandEncoder.setBytes(&knotCount, length: MemoryLayout<Int>.size, index: CEBufferIndex.knotVectorCount.rawValue)
         
         
@@ -859,8 +811,8 @@ extension Renderer: MTKViewDelegate {
             updateDynamicBuffers()
             updateAppState()
             
-            drawSurface(view: view, commandBuffer: commandBuffer)
-            //drawCurve(view: view, commandBuffer: commandBuffer)
+            //drawSurface(view: view, commandBuffer: commandBuffer)
+            drawCurve(view: view, commandBuffer: commandBuffer)
             
             if let drawable = view.currentDrawable {
                 commandBuffer.present(drawable)

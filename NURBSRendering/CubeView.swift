@@ -15,13 +15,13 @@ let kAlignedCubeSharedUniformsSize: Int = (MemoryLayout<CubeSharedUniforms>.size
 let kAlignedInstanceUniformsSize: Int = (MemoryLayout<InstanceUniforms>.size & ~0xFF) + 0x100
 
 struct CubeView: NSViewRepresentable {
-    var renderer: Renderer
+    @Binding var camera: Camera
     
     func makeNSView(context: Context) -> some NSView {
         let view = MTKView()
         view.colorPixelFormat = .bgra8Unorm
         view.depthStencilPixelFormat = .depth32Float_stencil8
-        view.clearColor = .init(red: 0.4, green: 0.4, blue: 0.4, alpha: 1.0)
+        view.clearColor = MTLClearColor(red: 0.3, green: 0.3, blue: 0.3, alpha: 1.0)
         view.sampleCount = 1
         context.coordinator.view = view
         view.device = GPUDevice.shared
@@ -210,7 +210,7 @@ extension CubeView {
         func updateState() {
             let uniforms = sharedUniformsBufferAddress.assumingMemoryBound(to: CubeSharedUniforms.self)
             
-            let rot = simd_quatf(parent.renderer.camera.transform.matrix)
+            let rot = simd_quatf(parent.camera.transform.matrix)
             let rotMatrix = float4x4(rot)
             let translationMatrix = Transform.init(translationX: 0.0, translationY: 0.0, translationZ: -13.0).matrix
             let camMatrix = rotMatrix * translationMatrix
@@ -218,7 +218,7 @@ extension CubeView {
             
             // Flip z to convert geometry from right hand to left hand
             var coordinateSpaceTransform = matrix_identity_float4x4
-            coordinateSpaceTransform.columns.2.z = -1.0
+            coordinateSpaceTransform.columns.2.z = 1.0
             
             var modelMatrix = simd_mul(matrix_identity_float4x4, coordinateSpaceTransform)
             let modelTranslation = Transform.init(translationX: 0.0, translationY: 0.0, translationZ: 0.0).matrix

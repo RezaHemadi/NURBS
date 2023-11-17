@@ -19,6 +19,10 @@ struct Point {
     float4 position;
 };
 
+struct Color {
+    float3 color;
+};
+
 // Patch struct
 struct PatchIn {
     patch_control_point<ControlPoint> control_points;
@@ -447,10 +451,10 @@ kernel void computeFactors(constant float&                          edge_factor 
     factors[pid].insideTessellationFactor[1] = inside_factor;
 }
 // kernel to transform control points to world space
-kernel void projectPoints(constant SharedUniforms& uniforms [[buffer(0)]],
-                          device   Point*          points   [[buffer(1)]],
-                                   uint            pid      [[thread_position_in_grid]]) {
-    points[pid].position = uniforms.surfaceTransform * points[pid].position;
+kernel void projectPoints(device   Point*                    points           [[buffer(0)]],
+                          constant GeometryInstanceUniforms& instanceUniforms [[buffer(1)]],
+                                   uint                      pid              [[thread_position_in_grid]]) {
+    points[pid].position = instanceUniforms.transform * points[pid].position;
 }
 
 // MARK: - Rendering
@@ -470,8 +474,8 @@ vertex FunctionOutIn vertexShader(             PatchIn         patchIn     [[sta
     float v = patch_coord.y;
     
     thread float4 s = float4(0.0, 0.0, 0.0, 0.0);
-    uint8_t n = patchIn.net.y - 1; // n + 1 is number of control points across u parameter space.
-    uint8_t m = patchIn.net.x - 1; // m + 1 is number of control points across v parameter space.
+    uint8_t n = patchIn.net.x - 1; // n + 1 is number of control points across u parameter space.
+    uint8_t m = patchIn.net.y - 1; // m + 1 is number of control points across v parameter space.
     uint8_t p = uKnots - 1 - n - 1; // p is the curve degree across u parameter space.
     uint8_t q = vKnots - 1 - m - 1;
     
@@ -523,19 +527,19 @@ struct CurveVertex {
 
 struct CurveVertexInOut {
     float4 position [[position]];
+    float3 color [[flat]];
 };
 
 void kernel evaluateCurve(device   float*       u                     [[ buffer(CEBufferIndexParameter) ]],
                           constant int&         numberOfControlPoints [[ buffer(CEBufferIndexNumberOfControlPoints) ]],
                           device   CurveVertex* vertices              [[ buffer(CEBufferIndexVertices) ]],
+                          device   Color* color                 [[buffer(CEBufferIndexColors)]],
                           device   Point*       controlPoints         [[ buffer(CEBufferIndexControlPoints) ]],
                           const device   float*       knotVector      [[ buffer(CEBufferIndexKnotVector) ]],
                           constant uint8_t&     knotVectorCount       [[ buffer(CEBufferIndexKnotVectorCount) ]],
+                          constant GeometryInstanceUniforms& instanceUniforms [[buffer(CEBufferIndexInstanceUniforms) ]],
                                    uint         id                    [[thread_position_in_grid]])
 {
-    //vertices[id].position = pointOnBezierCurve(controlPoints, numberOfControlPoints - 1, u[id]);
-    //float4 pw = deCasteljau1(controlPoints, numberOfControlPoints - 1, u[id]);
-    
     thread float N[10];
     int p = static_cast<uint8_t>(knotVectorCount - 1 - numberOfControlPoints);
     int span = FindSpan(numberOfControlPoints - 1, p, u[id], knotVector);
@@ -551,20 +555,35 @@ void kernel evaluateCurve(device   float*       u                     [[ buffer(
         pw = pw / pw.w;
     }
     vertices[id].position = pw;
+    color[id].color = float3(0.0, 0.0, 0.0);
+    
+    // first bit is uIndicator
+    if (instanceUniforms.config & (1<<0)) {
+        constexpr float eps = 5.0e-3;
+        const float d = u[id] - instanceUniforms.uIndicator;
+        if (abs(d) <= eps) {
+            color[id].color = float3(0.0, 1.0, 0.0);
+        } else {
+            color[id].color = float3(0.0, 0.0, 0.0);
+        }
+    }
 }
 
 vertex CurveVertexInOut curveVertexShader(CurveVertex in [[stage_in]],
-                                          constant SharedUniforms& uniforms [[buffer(1)]])
+                                          const device Color* colors [[buffer(2)]],
+                                          constant SharedUniforms& uniforms [[buffer(1)]],
+                                          uint vid [[vertex_id]])
 {
     CurveVertexInOut out;
     out.position = uniforms.projection * uniforms.viewMatrix * in.position;
+    out.color = colors[vid].color;
     
     return out;
 }
 
-fragment half4 curveFragmentShader(CurveVertexInOut in [[stage_in]])
+fragment float4 curveFragmentShader(CurveVertexInOut in [[stage_in]])
 {
-    return half4(1.0, 0.0, 0.0, 1.0);
+    return float4(in.color, 1.0);
 }
 
 // Mark: - Cube Rendering
@@ -648,6 +667,33 @@ vertex CPVertexInOut controlPointVertexShader(CPVertex in [[stage_in]],
 }
 
 fragment half4 controlPointFragmentShader(CPVertexInOut in [[stage_in]])
+{
+    return in.color;
+}
+
+// MARK: - Axis Rendering
+struct AxisVertex {
+    float3 position [[attribute(0)]];
+    float3 color [[attribute(1)]];
+};
+
+struct AxisColorInOut {
+    float4 position [[position]];
+    half4 color [[flat]];
+};
+
+vertex AxisColorInOut axisVertexShader(AxisVertex in [[stage_in]],
+                                       constant AxisInstanceUniforms& instanceUniforms [[buffer(2)]],
+                                       constant SharedUniforms& sharedUniforms [[buffer(3)]])
+{
+    AxisColorInOut out;
+    out.position = sharedUniforms.projection * sharedUniforms.viewMatrix * instanceUniforms.transform * float4(in.position, 1.0);
+    out.color = half4(half3(in.color), 1.0);
+    
+    return out;
+}
+
+fragment half4 axisFragmentShader(AxisColorInOut in [[stage_in]])
 {
     return in.color;
 }

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F524C5652AFD2D4B00E9AF4F /* NewSurfaceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F524C5642AFD2D4B00E9AF4F /* NewSurfaceView.swift */; };
 		F52E9DDF2AE692E400ECB896 /* NURBSRenderingApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F52E9DDE2AE692E400ECB896 /* NURBSRenderingApp.swift */; };
 		F52E9DE12AE692E400ECB896 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F52E9DE02AE692E400ECB896 /* ContentView.swift */; };
 		F52E9DE32AE692E600ECB896 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F52E9DE22AE692E600ECB896 /* Assets.xcassets */; };
@@ -16,16 +17,32 @@
 		F52E9DF22AE693C500ECB896 /* MTKViewContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F52E9DF12AE693C500ECB896 /* MTKViewContainer.swift */; };
 		F52E9DFA2AE694B200ECB896 /* RenderDestination.swift in Sources */ = {isa = PBXBuildFile; fileRef = F52E9DF92AE694B200ECB896 /* RenderDestination.swift */; };
 		F52E9E082AE6B19800ECB896 /* Shaders.metal in Sources */ = {isa = PBXBuildFile; fileRef = F52E9E072AE6B19800ECB896 /* Shaders.metal */; };
+		F53E27BF2B03C8A500FD002C /* ToolsPanelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F53E27BE2B03C8A500FD002C /* ToolsPanelView.swift */; };
+		F549D5822AFE23E900C9B65A /* AttributesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F549D5812AFE23E900C9B65A /* AttributesView.swift */; };
 		F556D0812AF2489D00BB64C6 /* ControlPointViewData.swift in Sources */ = {isa = PBXBuildFile; fileRef = F556D0802AF2489D00BB64C6 /* ControlPointViewData.swift */; };
 		F56AF68B2AE9CB8600101344 /* NetSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = F56AF68A2AE9CB8600101344 /* NetSize.swift */; };
 		F575124B2AF35E03005FDA63 /* Functions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F575124A2AF35E03005FDA63 /* Functions.swift */; };
-		F57FEA3B2AE6CB1400FFBE50 /* RenderTools.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F57FEA3A2AE6CB0C00FFBE50 /* RenderTools.framework */; };
-		F57FEA3C2AE6CB1400FFBE50 /* RenderTools.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = F57FEA3A2AE6CB0C00FFBE50 /* RenderTools.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		F57FEA472AE6D56000FFBE50 /* RightBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = F57FEA462AE6D56000FFBE50 /* RightBar.swift */; };
 		F57FEA492AE6D68D00FFBE50 /* PointPositionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F57FEA482AE6D68D00FFBE50 /* PointPositionView.swift */; };
 		F57FEA4F2AE7114300FFBE50 /* CubeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F57FEA4E2AE7114300FFBE50 /* CubeView.swift */; };
 		F59960922AF3ECA9004522F2 /* PatchDirection.swift in Sources */ = {isa = PBXBuildFile; fileRef = F59960912AF3ECA9004522F2 /* PatchDirection.swift */; };
+		F5D017982B04B8C300B1BF38 /* HMTKView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5D017972B04B8C300B1BF38 /* HMTKView.swift */; };
 		F5D386A42AF7B73C00A8520A /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5D386A32AF7B73C00A8520A /* Utilities.swift */; };
+		F5D386B22AF96C0600A8520A /* HLCurve.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5D386B12AF96C0600A8520A /* HLCurve.swift */; };
+		F5D386BC2AF96D0400A8520A /* RenderTools.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F5D386BA2AF96CFC00A8520A /* RenderTools.framework */; };
+		F5D386BD2AF96D0400A8520A /* RenderTools.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = F5D386BA2AF96CFC00A8520A /* RenderTools.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		F5D89FB42AFA60820005B9D0 /* HLCurveRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5D89FB32AFA60820005B9D0 /* HLCurveRenderer.swift */; };
+		F5D89FB72AFA86980005B9D0 /* HLRCurve.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5D89FB62AFA86980005B9D0 /* HLRCurve.swift */; };
+		F5D89FB92AFA91DE0005B9D0 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5D89FB82AFA91DE0005B9D0 /* MainView.swift */; };
+		F5D89FBB2AFAA1320005B9D0 /* HLParametricGeometry.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5D89FBA2AFAA1320005B9D0 /* HLParametricGeometry.swift */; };
+		F5D89FBD2AFAA61D0005B9D0 /* HLSurface.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5D89FBC2AFAA61D0005B9D0 /* HLSurface.swift */; };
+		F5D89FBF2AFAC0510005B9D0 /* HLRSurface.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5D89FBE2AFAC0510005B9D0 /* HLRSurface.swift */; };
+		F5D89FC52AFB43550005B9D0 /* HLCameraController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5D89FC42AFB43550005B9D0 /* HLCameraController.swift */; };
+		F5D89FC82AFB52E60005B9D0 /* HLNurbsSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5D89FC72AFB52E60005B9D0 /* HLNurbsSession.swift */; };
+		F5D89FCE2AFB68A50005B9D0 /* ObjectsViewer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5D89FCD2AFB68A50005B9D0 /* ObjectsViewer.swift */; };
+		F5D89FD12AFB69000005B9D0 /* HLNObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5D89FD02AFB69000005B9D0 /* HLNObject.swift */; };
+		F5D89FD32AFB7E680005B9D0 /* NewCurveView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5D89FD22AFB7E680005B9D0 /* NewCurveView.swift */; };
+		F5D89FD92AFBE5150005B9D0 /* ObjectsItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5D89FD82AFBE5150005B9D0 /* ObjectsItemView.swift */; };
 		F5E7CF192AEDAE8F00CEB57F /* PanView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5E7CF182AEDAE8F00CEB57F /* PanView.swift */; };
 /* End PBXBuildFile section */
 
@@ -37,16 +54,23 @@
 			remoteGlobalIDString = F5BD20DE2A2F65B60063BCCD;
 			remoteInfo = RenderTools;
 		};
+		F5D386B92AF96CFC00A8520A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F5D386B32AF96CFC00A8520A /* RenderTools.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = F5BD20DE2A2F65B60063BCCD;
+			remoteInfo = RenderTools;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		F57FEA3D2AE6CB1400FFBE50 /* Embed Frameworks */ = {
+		F5D386BE2AF96D0400A8520A /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				F57FEA3C2AE6CB1400FFBE50 /* RenderTools.framework in Embed Frameworks */,
+				F5D386BD2AF96D0400A8520A /* RenderTools.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -54,6 +78,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		F524C5642AFD2D4B00E9AF4F /* NewSurfaceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewSurfaceView.swift; sourceTree = "<group>"; };
 		F52E9DDB2AE692E400ECB896 /* NURBSRendering.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NURBSRendering.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F52E9DDE2AE692E400ECB896 /* NURBSRenderingApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NURBSRenderingApp.swift; sourceTree = "<group>"; };
 		F52E9DE02AE692E400ECB896 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -65,6 +90,8 @@
 		F52E9DF12AE693C500ECB896 /* MTKViewContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MTKViewContainer.swift; sourceTree = "<group>"; };
 		F52E9DF92AE694B200ECB896 /* RenderDestination.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RenderDestination.swift; sourceTree = "<group>"; };
 		F52E9E072AE6B19800ECB896 /* Shaders.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = Shaders.metal; sourceTree = "<group>"; };
+		F53E27BE2B03C8A500FD002C /* ToolsPanelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolsPanelView.swift; sourceTree = "<group>"; };
+		F549D5812AFE23E900C9B65A /* AttributesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttributesView.swift; sourceTree = "<group>"; };
 		F556D0802AF2489D00BB64C6 /* ControlPointViewData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ControlPointViewData.swift; sourceTree = "<group>"; };
 		F56AF68A2AE9CB8600101344 /* NetSize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetSize.swift; sourceTree = "<group>"; };
 		F575124A2AF35E03005FDA63 /* Functions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Functions.swift; sourceTree = "<group>"; };
@@ -75,7 +102,23 @@
 		F57FEA4D2AE6E0B900FFBE50 /* ShaderTypes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ShaderTypes.h; sourceTree = "<group>"; };
 		F57FEA4E2AE7114300FFBE50 /* CubeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CubeView.swift; sourceTree = "<group>"; };
 		F59960912AF3ECA9004522F2 /* PatchDirection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatchDirection.swift; sourceTree = "<group>"; };
+		F5D017972B04B8C300B1BF38 /* HMTKView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HMTKView.swift; sourceTree = "<group>"; };
 		F5D386A32AF7B73C00A8520A /* Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
+		F5D386B12AF96C0600A8520A /* HLCurve.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HLCurve.swift; sourceTree = "<group>"; };
+		F5D386B32AF96CFC00A8520A /* RenderTools.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RenderTools.xcodeproj; path = ../RenderTools/RenderTools.xcodeproj; sourceTree = "<group>"; };
+		F5D386BB2AF96CFF00A8520A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		F5D89FB32AFA60820005B9D0 /* HLCurveRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HLCurveRenderer.swift; sourceTree = "<group>"; };
+		F5D89FB62AFA86980005B9D0 /* HLRCurve.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HLRCurve.swift; sourceTree = "<group>"; };
+		F5D89FB82AFA91DE0005B9D0 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
+		F5D89FBA2AFAA1320005B9D0 /* HLParametricGeometry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HLParametricGeometry.swift; sourceTree = "<group>"; };
+		F5D89FBC2AFAA61D0005B9D0 /* HLSurface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HLSurface.swift; sourceTree = "<group>"; };
+		F5D89FBE2AFAC0510005B9D0 /* HLRSurface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HLRSurface.swift; sourceTree = "<group>"; };
+		F5D89FC42AFB43550005B9D0 /* HLCameraController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HLCameraController.swift; sourceTree = "<group>"; };
+		F5D89FC72AFB52E60005B9D0 /* HLNurbsSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HLNurbsSession.swift; sourceTree = "<group>"; };
+		F5D89FCD2AFB68A50005B9D0 /* ObjectsViewer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectsViewer.swift; sourceTree = "<group>"; };
+		F5D89FD02AFB69000005B9D0 /* HLNObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HLNObject.swift; sourceTree = "<group>"; };
+		F5D89FD22AFB7E680005B9D0 /* NewCurveView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewCurveView.swift; sourceTree = "<group>"; };
+		F5D89FD82AFBE5150005B9D0 /* ObjectsItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectsItemView.swift; sourceTree = "<group>"; };
 		F5E7CF182AEDAE8F00CEB57F /* PanView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PanView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -84,7 +127,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F57FEA3B2AE6CB1400FFBE50 /* RenderTools.framework in Frameworks */,
+				F5D386BC2AF96D0400A8520A /* RenderTools.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -111,8 +154,11 @@
 		F52E9DDD2AE692E400ECB896 /* NURBSRendering */ = {
 			isa = PBXGroup;
 			children = (
+				F5D386BB2AF96CFF00A8520A /* Info.plist */,
 				F52E9DDE2AE692E400ECB896 /* NURBSRenderingApp.swift */,
 				F52E9DED2AE6933000ECB896 /* Renderer.swift */,
+				F5D89FB32AFA60820005B9D0 /* HLCurveRenderer.swift */,
+				F5D017972B04B8C300B1BF38 /* HMTKView.swift */,
 				F52E9DF12AE693C500ECB896 /* MTKViewContainer.swift */,
 				F52E9DF92AE694B200ECB896 /* RenderDestination.swift */,
 				F52E9DEF2AE6935700ECB896 /* GPUDevice.swift */,
@@ -132,6 +178,21 @@
 				F57FEA4A2AE6E0A100FFBE50 /* NURBSRendering-Bridging-Header.h */,
 				F57FEA4D2AE6E0B900FFBE50 /* ShaderTypes.h */,
 				F5D386A32AF7B73C00A8520A /* Utilities.swift */,
+				F5D386B12AF96C0600A8520A /* HLCurve.swift */,
+				F5D89FBC2AFAA61D0005B9D0 /* HLSurface.swift */,
+				F5D89FB62AFA86980005B9D0 /* HLRCurve.swift */,
+				F5D89FBE2AFAC0510005B9D0 /* HLRSurface.swift */,
+				F5D89FB82AFA91DE0005B9D0 /* MainView.swift */,
+				F5D89FBA2AFAA1320005B9D0 /* HLParametricGeometry.swift */,
+				F5D89FC42AFB43550005B9D0 /* HLCameraController.swift */,
+				F5D89FC72AFB52E60005B9D0 /* HLNurbsSession.swift */,
+				F5D89FCD2AFB68A50005B9D0 /* ObjectsViewer.swift */,
+				F5D89FD82AFBE5150005B9D0 /* ObjectsItemView.swift */,
+				F549D5812AFE23E900C9B65A /* AttributesView.swift */,
+				F5D89FD22AFB7E680005B9D0 /* NewCurveView.swift */,
+				F524C5642AFD2D4B00E9AF4F /* NewSurfaceView.swift */,
+				F5D89FD02AFB69000005B9D0 /* HLNObject.swift */,
+				F53E27BE2B03C8A500FD002C /* ToolsPanelView.swift */,
 			);
 			path = NURBSRendering;
 			sourceTree = "<group>";
@@ -147,6 +208,7 @@
 		F57FEA322AE6CB0B00FFBE50 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				F5D386B32AF96CFC00A8520A /* RenderTools.xcodeproj */,
 				F57FEA332AE6CB0C00FFBE50 /* RenderTools.xcodeproj */,
 			);
 			name = Frameworks;
@@ -156,6 +218,14 @@
 			isa = PBXGroup;
 			children = (
 				F57FEA3A2AE6CB0C00FFBE50 /* RenderTools.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		F5D386B42AF96CFC00A8520A /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				F5D386BA2AF96CFC00A8520A /* RenderTools.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -170,7 +240,7 @@
 				F52E9DD72AE692E400ECB896 /* Sources */,
 				F52E9DD82AE692E400ECB896 /* Frameworks */,
 				F52E9DD92AE692E400ECB896 /* Resources */,
-				F57FEA3D2AE6CB1400FFBE50 /* Embed Frameworks */,
+				F5D386BE2AF96D0400A8520A /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -213,6 +283,10 @@
 					ProductGroup = F57FEA342AE6CB0C00FFBE50 /* Products */;
 					ProjectRef = F57FEA332AE6CB0C00FFBE50 /* RenderTools.xcodeproj */;
 				},
+				{
+					ProductGroup = F5D386B42AF96CFC00A8520A /* Products */;
+					ProjectRef = F5D386B32AF96CFC00A8520A /* RenderTools.xcodeproj */;
+				},
 			);
 			projectRoot = "";
 			targets = (
@@ -227,6 +301,13 @@
 			fileType = wrapper.framework;
 			path = RenderTools.framework;
 			remoteRef = F57FEA392AE6CB0C00FFBE50 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		F5D386BA2AF96CFC00A8520A /* RenderTools.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = RenderTools.framework;
+			remoteRef = F5D386B92AF96CFC00A8520A /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
@@ -248,22 +329,39 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F5D89FB72AFA86980005B9D0 /* HLRCurve.swift in Sources */,
 				F52E9DE12AE692E400ECB896 /* ContentView.swift in Sources */,
 				F52E9E082AE6B19800ECB896 /* Shaders.metal in Sources */,
 				F5E7CF192AEDAE8F00CEB57F /* PanView.swift in Sources */,
 				F575124B2AF35E03005FDA63 /* Functions.swift in Sources */,
+				F5D89FBD2AFAA61D0005B9D0 /* HLSurface.swift in Sources */,
 				F52E9DF22AE693C500ECB896 /* MTKViewContainer.swift in Sources */,
 				F556D0812AF2489D00BB64C6 /* ControlPointViewData.swift in Sources */,
+				F5D89FB42AFA60820005B9D0 /* HLCurveRenderer.swift in Sources */,
+				F524C5652AFD2D4B00E9AF4F /* NewSurfaceView.swift in Sources */,
 				F5D386A42AF7B73C00A8520A /* Utilities.swift in Sources */,
+				F53E27BF2B03C8A500FD002C /* ToolsPanelView.swift in Sources */,
 				F57FEA4F2AE7114300FFBE50 /* CubeView.swift in Sources */,
 				F52E9DEE2AE6933000ECB896 /* Renderer.swift in Sources */,
+				F5D89FBF2AFAC0510005B9D0 /* HLRSurface.swift in Sources */,
+				F5D89FD92AFBE5150005B9D0 /* ObjectsItemView.swift in Sources */,
 				F59960922AF3ECA9004522F2 /* PatchDirection.swift in Sources */,
+				F5D89FCE2AFB68A50005B9D0 /* ObjectsViewer.swift in Sources */,
+				F5D89FD32AFB7E680005B9D0 /* NewCurveView.swift in Sources */,
 				F57FEA472AE6D56000FFBE50 /* RightBar.swift in Sources */,
+				F5D89FB92AFA91DE0005B9D0 /* MainView.swift in Sources */,
+				F5D89FBB2AFAA1320005B9D0 /* HLParametricGeometry.swift in Sources */,
+				F5D89FD12AFB69000005B9D0 /* HLNObject.swift in Sources */,
+				F5D89FC82AFB52E60005B9D0 /* HLNurbsSession.swift in Sources */,
 				F52E9DF02AE6935700ECB896 /* GPUDevice.swift in Sources */,
+				F5D017982B04B8C300B1BF38 /* HMTKView.swift in Sources */,
 				F52E9DFA2AE694B200ECB896 /* RenderDestination.swift in Sources */,
 				F57FEA492AE6D68D00FFBE50 /* PointPositionView.swift in Sources */,
+				F5D89FC52AFB43550005B9D0 /* HLCameraController.swift in Sources */,
 				F52E9DDF2AE692E400ECB896 /* NURBSRenderingApp.swift in Sources */,
+				F5D386B22AF96C0600A8520A /* HLCurve.swift in Sources */,
 				F56AF68B2AE9CB8600101344 /* NetSize.swift in Sources */,
+				F549D5822AFE23E900C9B65A /* AttributesView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -401,6 +499,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"NURBSRendering/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = NURBSRendering/Info.plist;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -429,6 +528,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"NURBSRendering/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = NURBSRendering/Info.plist;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

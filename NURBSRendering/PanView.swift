@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct PanView: View {
-    @StateObject var renderer: Renderer
+    @StateObject var camControl: HLCameraController
     
     var drag: some Gesture {
         DragGesture(minimumDistance: 0.0)
@@ -16,8 +16,8 @@ struct PanView: View {
                 let xTranslationNormalized = Float(value.translation.width / 120.0)
                 let yTranslationNormalized = Float(value.translation.height / 120.0)
                 
-                renderer.panSceneCamera(xNormalizedTranslation: xTranslationNormalized,
-                                        yNormalizedTranslation: yTranslationNormalized)
+                camControl.pan(xNormalized: xTranslationNormalized,
+                               yNormalized: yTranslationNormalized)
             }
     }
     
@@ -30,5 +30,5 @@ struct PanView: View {
 }
 
 #Preview {
-    PanView(renderer: Renderer())
+    PanView(camControl: HLCameraController())
 }

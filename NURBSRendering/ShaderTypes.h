@@ -43,7 +43,9 @@ typedef NS_ENUM(NSInteger, CEBufferIndex)
     CEBufferIndexVertices = 2,
     CEBufferIndexControlPoints = 3,
     CEBufferIndexKnotVector = 4,
-    CEBufferIndexKnotVectorCount = 5
+    CEBufferIndexKnotVectorCount = 5,
+    CEBufferIndexColors = 6,
+    CEBufferIndexInstanceUniforms = 7
 };
 
 // cube camera control instance uniforms
@@ -51,11 +53,22 @@ typedef struct {
     matrix_float4x4 transform;
 } InstanceUniforms;
 
+typedef struct {
+    matrix_float4x4 transform;
+    float          uIndicator;
+    int8_t            config;
+} GeometryInstanceUniforms;
+
 // control point instance uniforms
 typedef struct {
     matrix_float4x4 transform;
     bool            highlight;
 } CPInstanceUniforms;
+
+// axis rendering instance uniforms
+typedef struct {
+    matrix_float4x4 transform;
+} AxisInstanceUniforms;
 
 typedef struct {
     matrix_float4x4 projection;

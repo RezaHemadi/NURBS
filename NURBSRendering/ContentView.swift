@@ -99,10 +99,10 @@ struct ContentView: View {
                 VStack {
                     HStack {
                         Spacer()
-                        
+                        /*
                         PanView(renderer: renderer)
                             .frame(width: 120, height: 120)
-                            .padding()
+                            .padding()*/
                     }
                     Spacer()
                     
@@ -110,9 +110,10 @@ struct ContentView: View {
                         Spacer()
                         
                         ZStack {
+                            /*
                             CubeView(renderer: renderer)
                                 .clipShape(Circle())
-                                .gesture(drag)
+                                .gesture(drag)*/
                             VStack {
                                 Button(action: {topView()}) {
                                     Image(systemName: "circle.grid.cross.up.filled")
