@@ -56,8 +56,10 @@ func curveKnotIns(np: Int, p: Int, UP: RVec<Float>, Pw: Mat<Float>, u: Float, k:
     }
     
     // Load remaining control points
-    for i in (L + 1)..<(k - s) {
-        Qw.row(i) <<== Rw.row(i - L)
+    if (L + 1 < k - s) {
+        for i in (L + 1)..<(k - s) {
+            Qw.row(i) <<== Rw.row(i - L)
+        }
     }
 }
 
@@ -632,4 +634,398 @@ func makeRevolvedSurf(S: RVec3f,
             }
         }
     }
+}
+
+// TODO: Test this function
+// Refine curve knot vector
+// input:
+//  n: number of control points - 1
+//  p: degree of curve
+//  U: knot vector of the curve
+//  Pw: control points
+//  X: vector of knots to insert
+// output:
+//  Ubar: new knot vector
+//  Qw: new control points
+func refineKnotVectCurve(n: Int,
+                         p: Int,
+                         U: RVecf,
+                         Pw: Matf,
+                         X: RVecf,
+                         Ubar: inout RVecf,
+                         Qw: inout Matf) {
+    let m = n + p + 1
+    let a = findSpan(n: n, p: p, u: X[0], knotVector: U)
+    let r = X.count - 1
+    var b = findSpan(n: n, p: p, u: X[r], knotVector: U)
+    b = b + 1
+    for j in 0...(a - p) { Qw.row(j) <<== Pw.row(j) }
+    for j in (b - 1)...n { Qw.row(j + r + 1) <<== Pw.row(j) }
+    for j in 0...a { Ubar[j] = U[j] }
+    for j in (b + p)...m { Ubar[j + r + 1] = U[j] }
+    var i = b + p - 1
+    var k = b + p + r
+    for j in 0...r {
+        let j = r - j
+        while (X[j] <= U[i] && i > a) {
+            Qw.row(k - p - 1) <<== Pw.row(i - p - 1)
+            Ubar[k] = U[i]
+            k = k - 1
+            i = i - 1
+        }
+        Qw.row(k - p - 1) <<== Qw.row(k - p)
+        for l in 1...p {
+            let ind = k - p + 1
+            var alpha = Ubar[k + l] - X[j]
+            if (abs(alpha) == 0.0) {
+                Qw.row(ind - 1) <<== Qw.row(ind)
+            } else {
+                alpha = alpha / (Ubar[k + l] - U[i - p + l])
+                let temp1: RVecf = Qw.row(ind - l)
+                let temp2: RVecf = Qw.row(ind)
+                Qw.row(ind - l) <<== alpha * temp1 + (1.0 - alpha) * temp2
+            }
+        }
+        Ubar[k] = X[j]
+        k = k - 1
+    }
+}
+
+// TODO: Test this function
+// Remove knot u (index r) num times
+// input:
+//  n: number of control points - 1
+//  p: degree of the curve
+//  U: knot vector
+//  Pw: control points
+//  u: knot to be removed
+//  r: index of the knot to be removed
+//  s: multiplicity of the knot to be removed
+//  num: number of times to remove knot u
+// output:
+//  t: the actual number of times knot u is removed
+//  U: new knot vector
+//  Pw: new control points
+func removeCurveKnot(n: Int, p: Int, U: inout RVecf, Pw: inout Matf, u: Float, r: Int, s: Int, num: Int, t: inout Int) {
+    // compute TOL
+    let wmin: Float = Pw.col(3).minCoeff()
+    var Pmax: Float = .zero
+    for i in 0..<Pw.rows {
+        var P: RVec4f = Pw.row(i)
+        P = P / P[3]
+        let norm = P.xyz.norm()
+        if norm > Pmax {
+            Pmax = norm
+        }
+    }
+    let d: Float = 1.0e-1
+    
+    let TOL = (d * wmin) / (1.0 + Pmax)
+    
+    let m: Int = n + p + 1
+    let ord: Int = p + 1
+    let fout: Int = (2 * r - s - p) / 2 // first control point out
+    var last: Int = r - s
+    var first: Int = r - p
+    
+    var  off: Int = .zero
+    var  temp = Matf(2 * p + 1, Pw.cols)
+    var i: Int = 0
+    var j: Int = 0
+    var ii: Int = 0
+    var jj: Int = 0
+    var remflag: Int = 0
+    for t in 0..<num {
+        off = first - 1 // diff in index between temp and P
+        temp.row(0) <<== Pw.row(off)
+        temp.row(last + 1 - off) <<== Pw.row(last + 1)
+        i = first
+        j = last
+        ii = 1
+        jj = last - off
+        remflag = 0
+        var alfi: Float = .zero
+        while (j - i > t) {
+            // compute new control points for one removal step
+            alfi = (u - U[i]) / (U[i + ord + t] - U[i])
+            let alfj: Float = (u - U[j - t]) / (U[j + ord] - U[j - t])
+            var numerator: RVec4 = (Pw.row(i) - (1.0 - alfi) * temp.row(ii - 1))
+            temp.row(ii) <<== (numerator / alfi)
+            numerator = (Pw.row(j) - alfj * temp.row(jj + 1))
+            temp.row(jj) <<== numerator / (1.0 - alfj)
+            i += 1
+            ii += 1
+            j -= 1
+            jj -= 1
+        }
+        // check if knot is removable
+        if (j - i < t) {
+            let distance = (temp.row(ii - 1) - temp.row(jj + 1)).norm()
+            if (distance <= TOL) {
+                remflag = 1
+            }
+        } else {
+            alfi = (u - U[i]) / (U[i + ord + t] - U[i])
+            let leftTerm: RVec = Pw.row(i)
+            let rightTerm: RVec = (alfi * temp.row(ii + t + 1) + (1.0 - alfi) * temp.row(ii - 1))
+            let distance = (leftTerm - rightTerm).norm()
+            if distance <= TOL {
+                remflag = 1
+            }
+        }
+        
+        if (remflag == 0) {
+            // cannot remove any more knots
+            // get out of for-loop
+            break
+        } else {
+            // successful removal. save new control points
+            i = first
+            j = last
+            while (j - i > t) {
+                Pw.row(i) <<== temp.row(i - off)
+                Pw.row(j) <<== temp.row(j - off)
+                i += 1
+                j -= 1
+            }
+        }
+        first -= 1
+        last += 1
+    } // end of for-loop
+    
+    if (t == 0) { return }
+    
+    for k in (r+1)...m {
+        // shift knots
+        U[k - t] = U[k]
+    }
+    // Pj through Pi will be overwritten
+    j = fout
+    i = j
+    for k in 1..<t {
+        if (k % 2 == 1) {
+            i += 1
+        } else {
+            j -= 1
+        }
+    }
+    for k in (i + 1)...n {
+        // shift
+        Pw.row(j) <<== Pw.row(k)
+        j += 1
+    }
+    return
+}
+
+// TODO: test this function
+// Degree elevate a curve t times.
+// input:
+//  n: number of control points - 1
+//  p: degree of the curve
+//  U: knot vector
+//  Pw: control points
+//  t: number of times to elevate the degree
+// output:
+//  nh: number of control points of the new curve
+//  Uh: knot vector of new curve
+//  Qw: new control points
+func degreeElevateCurve(n: Int, p: Int, U: RVecf, Pw: Matf, t: Int, nh: inout Int, Uh: inout RVecf, Qw: inout Matf) {
+    let m: Int = n + p + 1
+    let ph: Int = p + t
+    let ph2: Int = ph / 2
+    // compute bezier degree elevation coefficients
+    // coefficients for degree elevating the Bezier segments
+    var bezalfs: [[Float]] = .init(repeating: .init(repeating: .zero, count: p + 1), count: p + t + 1)
+    // pth-degree Bezier control points of the current segment
+    let bpts = Matf(p + 1, Pw.cols)
+    // (p + t)th-degree Bezier control points of the current segment
+    let ebpts = Matf(p + t + 1, Pw.cols)
+    // leftmost control points of the next Bezier segment
+    let nextBpts = Matf(p - 1, Pw.cols)
+    // knot insertion alphas
+    var alphas: [Float] = .init(repeating: .zero, count: p - 1)
+    bezalfs[ph][p] = 1.0
+    bezalfs[0][0] = 1.0
+    
+    for i in 1...ph2 {
+        let inv: Float = 1.0 / binomial(UInt(ph), UInt(i))
+        let mpi: Int = min(p, i)
+        
+        let tmp: Int = max(0, i - t)
+        for j in tmp...mpi {
+            bezalfs[i][j] = inv * binomial(p, j) * binomial(t, i - j)
+        }
+    }
+    if (ph2 + 1) <= (ph - 1) {
+        for i in (ph2 + 1)...(ph - 1) {
+            let mpi: Int = min(p, i)
+            for j in max(0, i-t)...mpi {
+                bezalfs[i][j] = bezalfs[ph - i][p - j]
+            }
+        }
+    }
+    
+    var mh: Int = ph
+    var kind: Int = ph + 1
+    var r: Int = -1
+    var a: Int = p
+    var b: Int = p + 1
+    var cind: Int = 1
+    var ua: Float = U[0]
+    Qw.resize(1, Pw.cols)
+    Qw.row(0) <<== Pw.row(0)
+    
+    Uh.resize(ph + 1)
+    for i in 0...ph { Uh[i] = ua }
+    // Initialize first Bezier seg
+    for i in 0...p { bpts.row(i) <<== Pw.row(i) }
+    
+    // Big loop through knot vector
+    while (b < m) {
+        let i: Int = b
+        while (b < m && U[b] == U[b + 1]) { b += 1 }
+        let mul: Int = b - i + 1
+        mh = mh + mul + t
+        let ub: Float = U[b]
+        let oldr: Int = r
+        r = p - mul
+        // Insert knot u(b) r times
+        var lbz: Int = .zero
+        var rbz: Int = .zero
+        if (oldr > 0) {
+            lbz = (oldr + 2) / 2
+        } else {
+            lbz = 1
+        }
+        
+        if (r > 0) {
+            rbz = ph - (r + 1) / 2
+        } else {
+            rbz = ph
+        }
+        
+        if (r > 0) {
+            // Insert knot to get Bezier segment
+            let numer: Float = ub - ua
+            for k in stride(from: p, to: mul, by: -1) { alphas[k - mul - 1] = numer / (U[a + k] - ua) }
+            for j in 1...r {
+                let save: Int = r - j
+                let s: Int = mul + j
+                for k in stride(from: p, through: s, by: -1) {
+                    bpts.row(k) <<== alphas[k - s] * bpts.row(k) + (1.0 - alphas[k - s]) * bpts.row(k - 1)
+                }
+                nextBpts.row(save) <<== bpts.row(p)
+            }
+        } // end of 'insert knot'
+        
+        for i in lbz...ph {
+            // degree elevate Bezier
+            // Only points lbz,...,ph are used below
+            ebpts.row(i) <<== RVecf.Zero(Pw.cols)
+            let mpi: Int = min(p, i)
+            for j in max(0, i - t)...mpi {
+                ebpts.row(i) <<== ebpts.row(i) + bezalfs[i][j] * bpts.row(j)
+            }
+        } // End of degree elevating Bezier
+        if (oldr > 1) {
+            // Must remove knot u = U[a] oldr times
+            var first: Int = kind - 2
+            var last: Int = kind
+            let den: Float = ub - ua
+            let bet: Float = (ub - Uh[kind - 1]) / den
+            
+            for tr in 1..<oldr {
+                // Knot removal loop
+                var i: Int = first
+                var j: Int = last
+                var kj: Int = j - kind + 1
+                
+                while(j - i > tr) { // loop and compute new control points for one removal step
+                    if (i < cind) {
+                        let alf: Float = (ub - Uh[i]) / (ua - Uh[i])
+                        let leftTerm: RVecf = alf * Qw.row(i)
+                        let rightTerm: RVecf = (1.0 - alf) * Qw.row(i - 1)
+                        if (i >= Qw.rows) { Qw.conservativeResize(i + 1, Qw.cols) }
+                        Qw.row(i) <<== leftTerm + rightTerm
+                    }
+                    if (j >= lbz) {
+                        if (j - tr <= kind - ph + oldr) {
+                            let gam: Float = (ub - Uh[j - tr]) / den
+                            let leftTerm: RVecf = gam * ebpts.row(kj)
+                            let rightTerm: RVecf = (1.0 - gam) * ebpts.row(kj + 1)
+                            ebpts.row(kj) <<== leftTerm + rightTerm
+                        } else {
+                            let leftTerm: RVecf = bet * ebpts.row(kj)
+                            let rightTerm: RVecf = (1.0 - bet) * ebpts.row(kj + 1)
+                            ebpts.row(kj) <<== leftTerm + rightTerm
+                        }
+                    }
+                    i += 1
+                    j -= 1
+                    kj -= 1
+                }
+                first -= 1
+                last += 1
+            }
+        } // end of removing knot, u = U[a]
+        
+        if (a != p) { // load the knot ua
+            for _ in 0..<(ph - oldr) {
+                if kind >= Uh.count {
+                    Uh.conservativeResize(kind + 1)
+                }
+                Uh[kind] = ua
+                kind += 1
+            }
+        }
+        
+        for j in lbz...rbz {
+            // Load control points into Qw
+            if (cind >= Qw.rows) { Qw.conservativeResize(cind + 1, Qw.cols) }
+            Qw.row(cind) <<== ebpts.row(j)
+            cind += 1
+        }
+        if (b < m) {
+            // set up for next pass thru loop
+            for j in 0..<r { bpts.row(j) <<== nextBpts.row(j) }
+            for j in r...p { bpts.row(j) <<== Pw.row(b - p + j) }
+            a = b
+            b += 1
+            ua = ub
+        } else {
+            // end knot
+            for i in 0...ph {
+                if (kind + i >= Uh.count) {
+                    Uh.conservativeResize(kind + i + 1)
+                }
+                Uh[kind + i] = ub
+            }
+        }
+    } // end of while loop (b < m)
+    nh = mh - ph - 1
+}
+
+// MARK: - Helper methods
+private func binomial(_ n: UInt, _ k: UInt) -> Float {
+    assert(n >= k)
+    
+    let numerator = factorial(n)
+    let denominator = factorial(k) * factorial(n - k)
+    
+    return Float(numerator) / Float(denominator)
+}
+
+private func binomial(_ n: Int, _ k: Int) -> Float {
+    assert(n >= k)
+    
+    let numerator = factorial(UInt(n))
+    let denominator = factorial(UInt(k)) * factorial(UInt(n - k))
+    
+    return Float(numerator) / Float(denominator)
+}
+
+private func factorial(_ n: UInt) -> UInt {
+    if (n == 0 || n == 1) { return 1 }
+    
+    return n * factorial(n - 1)
 }

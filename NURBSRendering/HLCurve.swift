@@ -24,6 +24,13 @@ struct HLCurve {
         }
         return false
     }
+    var parameterRange: ClosedRange<Float> {
+        assert(knotVector.count != 0)
+        let first = knotVector.valuesPtr.pointer[0]
+        let last = knotVector.valuesPtr.pointer[knotVector.count - 1]
+        
+        return first...last
+    }
     
     // MARK: - Initialization
     init(controlPoints: Matf, knotVector: RVecf) {
@@ -107,7 +114,7 @@ struct HLCurve {
         return rays
     }
     
-    mutating func insertKnot(at u: Float) {
+    mutating func insertKnot(at u: Float, multiplicity r: Int = 1) {
         assert(u.isLessThanOrEqualTo(1.0) && !u.isLess(than: 0.0))
         
         var newCtrlPts = Matf()
@@ -117,7 +124,7 @@ struct HLCurve {
         let k = findSpan(n: n, p: p, u: u, knotVector: knotVector)
         let s = (knotVector.array() == u).count()
         curveKnotIns(np: n,
-                     p: p, UP: knotVector, Pw: controlPoints, u: u, k: k, s: s, r: 1, nq: &newN, UQ: &newKnotVec, Qw: &newCtrlPts)
+                     p: p, UP: knotVector, Pw: controlPoints, u: u, k: k, s: s, r: r, nq: &newN, UQ: &newKnotVec, Qw: &newCtrlPts)
         controlPoints = newCtrlPts
         knotVector = newKnotVec
         

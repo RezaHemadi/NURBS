@@ -67,6 +67,12 @@ struct NewSurfaceView: View {
                 return false
             }
             return true
+            
+        case .ruled:
+            if curveSelected.filter({$0 == true}).count == 2 {
+                return false
+            }
+            return true
         }
     }
     
@@ -104,6 +110,16 @@ struct NewSurfaceView: View {
                                                   sweepAngle: revAngle,
                                                   name: name)
             }
+            
+        case .ruled:
+            var selected: [HLRCurve] = []
+            for i in 0..<curveSelected.count {
+                if curveSelected[i] {
+                    selected.append(curves[i])
+                }
+            }
+            assert(selected.count == 2)
+            session.createRuledSurface(firstCurve: selected[0], secondCurve: selected[1], name: name)
         }
         dismiss()
     }
@@ -114,6 +130,28 @@ struct NewSurfaceView: View {
         width = 1.0
         height = 1.0
         name = ""
+    }
+    
+    private var RuledSelectionView: some View {
+        VStack(alignment: .leading) {
+            HStack {
+                Text("name:")
+                    .frame(width: 60.0, alignment: .leading)
+                TextField(name, text: $name)
+                    .textFieldStyle(.roundedBorder)
+                    .frame(width: 100.0)
+                Spacer()
+            }
+            
+            List(0..<curveCount) { index in
+                HStack {
+                    Toggle(isOn: $curveSelected[index], label: {
+                        Text(curves[index].name ?? "untitled")
+                    })
+                }
+            }
+            .scrollContentBackground(.hidden)
+        }
     }
     
     private var GridSelectionView: some View {
@@ -264,6 +302,8 @@ struct NewSurfaceView: View {
                 CombineSelectionView
             case .revolution:
                 RevolutionView
+            case .ruled:
+                RuledSelectionView
             }
             HStack {
                 Spacer()
@@ -294,5 +334,6 @@ extension NewSurfaceView {
         case grid = "Grid"
         case combine = "Combine"
         case revolution = "Revolution"
+        case ruled = "Ruled"
     }
 }

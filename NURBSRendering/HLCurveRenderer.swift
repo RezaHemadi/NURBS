@@ -390,17 +390,19 @@ extension HLCurveRenderer {
                 ray = curve.transform.inverseTransformMatrix * ray
                 
                 // hit test against each leg of the curve
-                let targetRays = curve.legs(controlPointSpacing: curve.p)
+                let targetRays = curve.legs(controlPointSpacing: 1)
                 for i in 0..<targetRays.count {
                     var t1: Float?
                     var t2: Float?
                     var intersection: RVec3f?
                     RayCast(rayOne: ray, rayTwo: targetRays[i], t1: &t1, t2: &t2, intersection: &intersection)
                     if let t2 = t2, t2.isLess(than: 1.0), !t2.isLess(than: 0.0) {
+                        let s = t2
+                        let i = i + 1
                         let p = curve.p
-                        let ui = curve.knotVector[i + 1]
-                        let uip = curve.knotVector[i + 1 + p]
-                        curve.knotIndicator = ui + t2 * (uip - ui)
+                        let ui = curve.knotVector[i]
+                        let uip = curve.knotVector[i + p]
+                        curve.knotIndicator = ui + (s) * (uip - ui)
                     }
                 }
             }

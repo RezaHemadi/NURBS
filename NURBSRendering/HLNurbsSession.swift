@@ -8,6 +8,7 @@
 import Foundation
 import SwiftUI
 import RenderTools
+import Matrix
 
 enum UXConfig {
     case pickKnot
@@ -150,6 +151,112 @@ class HLNurbsSession: ObservableObject {
     func createSurfaceOfRevolution(curve: HLRCurve, axis: AxisOfRevolution, sweepAngle: Float, name: String? = nil) {
         let curve = curve.getCurve()
         let surface = HLSurface.SurfaceOfRecolution(S: [0.0, 0.0, 0.0], T: axis.vector, theta: sweepAngle, curve: curve)
+        addGeometry(HLRSurface(surface: surface, device: GPUDevice.shared, name: name))
+    }
+    
+    func createRuledSurface(firstCurve: HLRCurve, secondCurve: HLRCurve, name: String? = nil) {
+        var c1 = firstCurve.getCurve()
+        var c2 = secondCurve.getCurve()
+        
+        // make sure c1 and c2 are defined on the same parameter range
+        assert(c1.parameterRange == c2.parameterRange)
+        
+        // set the degree to maximum of the degree of the two curves
+        let p: Int = max(c1.p, c2.p)
+        
+        // elevate the degree of the first curve if it's not equal to p
+        if (c1.p != p) {
+            let t = p - c1.p
+            var n: Int = .zero
+            var U = RVecf()
+            var Pw = Matf()
+            degreeElevateCurve(n: c1.n, p: c1.p, U: c1.knotVector, Pw: c1.controlPoints, t: t, nh: &n, Uh: &U, Qw: &Pw)
+            c1 = .init(controlPoints: Pw, knotVector: U)
+        }
+        
+        // elevate the degree of the second curve if it's not equal to p
+        if (c2.p != p) {
+            let t = p - c2.p
+            var n: Int = .zero
+            var U = RVecf()
+            var Pw = Matf()
+            degreeElevateCurve(n: c2.n, p: c2.p, U: c2.knotVector, Pw: c2.controlPoints, t: t, nh: &n, Uh: &U, Qw: &Pw)
+            c2 = .init(controlPoints: Pw, knotVector: U)
+        }
+        
+        // Merge knot vectors of the two curves
+        struct KnotInsertionDescriptor {
+            /// value to place
+            let u: Float
+            /// number of times to insert
+            let t: Int
+        }
+        
+        var c2Insertions: [KnotInsertionDescriptor] = []
+        // loop over knot vector of c1 to determine knots to be inserted in c2
+        for i in 0..<c1.knotVector.count {
+            let u = c1.knotVector[i]
+            let t = (c1.knotVector.array() == u).count()
+            
+            guard !c2Insertions.contains(where: {$0.u == u}) else { continue }
+            
+            // determine if knot vector of c2 has this value
+            var c2Count: Int = 0
+            c2Count = (c2.knotVector.array() == u).count()
+            
+            let count: Int = t - c2Count
+            if (count > 0) {
+                c2Insertions.append(.init(u: u, t: count))
+            }
+        }
+        
+        var c1Insertions: [KnotInsertionDescriptor] = []
+        // loop over knot vector of c2 to determine  knots to be inserted in c1
+        for i in 0..<c2.knotVector.count {
+            let u = c2.knotVector[i]
+            let t = (c2.knotVector.array() == u).count()
+            
+            guard !c1Insertions.contains(where: {$0.u == u}) else { continue }
+            
+            // determine if knot vector of c1 has thisvalue
+            var c1Count: Int = 0
+            c1Count = (c1.knotVector.array() == u).count()
+            
+            let count: Int = t - c1Count
+            if (count > 0) {
+                c1Insertions.append(.init(u: u, t: t))
+            }
+        }
+        
+        // Insert knots in curve two
+        for insertion in c2Insertions {
+            c2.insertKnot(at: insertion.u,
+                          multiplicity: insertion.t)
+        }
+        
+        // Insert knots in curve one
+        for insertion in c1Insertions {
+            c1.insertKnot(at: insertion.u,
+                          multiplicity: insertion.t)
+        }
+        
+        // Construct ruled surface using c1 and c2
+        let vKnotVector = RVecf([0.0, 0.0, 1.0, 1.0])
+        let uKnotVector = c1.knotVector
+        let netSize: NetSize = [2, UInt32(c1.controlPoints.rows)]
+        let Pw = Matf(2 * c1.controlPoints.rows, 4)
+        
+        for i in 0..<c1.controlPoints.rows {
+            Pw.row(i) <<== c1.controlPoints.row(i)
+        }
+        
+        let offset: Int = c1.controlPoints.rows
+        for i in 0..<c2.controlPoints.rows {
+            Pw.row(i + offset) <<== c2.controlPoints.row(i)
+        }
+        
+        let surface = HLSurface(controlPoints: Pw, uKnotVector: uKnotVector, vKnotVector: vKnotVector, netSize: netSize)
+        print(netSize)
         addGeometry(HLRSurface(surface: surface, device: GPUDevice.shared, name: name))
     }
     

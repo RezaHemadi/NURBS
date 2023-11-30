@@ -83,13 +83,13 @@ class HLRCurve: HLParametricGeometry {
         points.reserveCapacity(ctrlPts.rows)
         for i in 0..<ctrlPts.rows {
             let row: MatrixRow = ctrlPts.row(i)
-            points.append(.init([row[0], row[1], row[2]], 1.0))
+            points.append(.init([row[0], row[1], row[2]], row[3]))
         }
         for i in 0..<points.count {
             points[i] = transform.matrix * points[i]
         }
         for i in 0..<ctrlPts.rows {
-            ctrlPts.row(i) <<== RVec4f(xyz: [points[i].x, points[i].y, points[i].z], w: ctrlPts.row(i)[3])
+            ctrlPts.row(i) <<== RVec4f(xyz: [points[i].x, points[i].y, points[i].z], w: points[i][3])
         }
         
         return .init(controlPoints: ctrlPts, knotVector: knotV)
