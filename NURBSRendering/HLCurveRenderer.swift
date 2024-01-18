@@ -453,7 +453,7 @@ extension HLCurveRenderer {
                     var localMoveDirection = parent.geometries[i].transform.inverseTransformMatrix * worldMoveDirection
                     localMoveDirection *= 3.0
                     var translation: RVec<Float> = .init([localMoveDirection.x, localMoveDirection.y, localMoveDirection.z, 0.0])
-                    let domIdx: Int = translation.projectToLargestComponent()
+                    let domIdx: Int = translation.largestValueIndex
                     
                     let row: MatrixRow = parent.geometries[i].controlPoints.row(j)
                     row += translation
